@@ -1,6 +1,6 @@
 #Ambiente go oracle 
 FROM golang
-LABEL maintainer="rafael180496@gmail.com"
+LABEL maintainer="developers@thedataage.com"
 #Utilidades
 RUN apt-get update 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends apt-utils
@@ -24,7 +24,7 @@ RUN apt-get install git -y
 #oracle cli 12.1
 RUN mkdir /usr/auxprogram && \
     cd /usr/auxprogram && \
-    git clone https://github.com/rafael180496/dockerglash.git
+    git clone https://github.com/tdanic/dockerglash.git
 
 RUN cd  /usr/auxprogram/dockerglash && \
     7z e jdkclient.7z.001 

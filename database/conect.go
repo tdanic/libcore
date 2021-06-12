@@ -7,7 +7,7 @@ import (
 	"os"
 
 	"github.com/jmoiron/sqlx"
-	utl "github.com/rafael180496/libcore/utility"
+	utl "github.com/tdanic/libcore/utility"
 
 	/*Conexion a mysql*/
 	_ "github.com/go-sql-driver/mysql"

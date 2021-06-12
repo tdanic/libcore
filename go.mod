@@ -1,4 +1,4 @@
-module github.com/rafael180496/libcore
+module github.com/tdanic/libcore
 
 go 1.13
 

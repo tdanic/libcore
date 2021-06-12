@@ -3,7 +3,7 @@ package test
 import (
 	"testing"
 
-	utl "github.com/rafael180496/libcore/utility"
+	utl "github.com/tdanic/libcore/utility"
 )
 
 /*TestAes : prueba las funciones de encriptamiento aes */

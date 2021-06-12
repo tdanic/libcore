@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	utl "github.com/rafael180496/libcore/utility"
+	utl "github.com/tdanic/libcore/utility"
 )
 
 /*SubString : recorta una cadena */

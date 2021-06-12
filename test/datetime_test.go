@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/rafael180496/libcore/utility"
+	"github.com/tdanic/libcore/utility"
 )
 
 /*TestFNulo : Envie una fecha nula.*/
