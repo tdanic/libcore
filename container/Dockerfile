@@ -1,6 +1,7 @@
 #Ambiente go oracle 
 FROM golang
 LABEL maintainer="developers@thedataage.com"
+
 #Utilidades
 RUN apt-get update 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends apt-utils
@@ -17,10 +18,13 @@ RUN apt-get install vim -y && \
     apt-get install software-properties-common -y && \
     apt-get install libaio1 -y && \
     apt-get install alien -y 
-#intalacion de rpm
+
+#instalacion de rpm
 RUN apt-get install rpm -y
-#intalar git
+
+#instalacion de git
 RUN apt-get install git -y
+
 #oracle cli 12.1
 RUN mkdir /usr/auxprogram && \
     cd /usr/auxprogram && \
@@ -40,11 +44,12 @@ RUN cd  /usr/auxprogram/dockerglash && \
     mkdir -p "/usr/lib/oracle/12.1/client64/network/admin"
 
 RUN rm -R  /usr/auxprogram
-# creacion de variable oci
+
+#creacion de variable oci
 RUN mkdir -p "/usr/local/share/pkgconfig"
 COPY configssh/oci8.pc /usr/local/share/pkgconfig/oci8.pc 
-#variables de entorno
 
+#variables de entorno
 ENV PKG_CONFIG_PATH /usr/local/share/pkgconfig
 ENV ORACLE_HOME /usr/lib/oracle/12.1/client64
 ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:$ORACLE_HOME/lib:$ORACLE_HOME
@@ -68,6 +73,7 @@ ENV GIT_TERMINAL_PROMPT 1
 ENV GOPROXY direct
 ENV GOSUMDB off
 ENV  PATH $PATH:$ORACLE_HOME/bin
+
 #depuracion de la imagen
 RUN  apt-get remove --purge unzip -y && \
      apt-get remove --purge p7zip-full -y && \    
@@ -77,21 +83,17 @@ RUN  apt-get remove --purge unzip -y && \
 RUN  apt-get autoremove -y
 
 #configuracion ssh
-
-RUN apt-get install openssh-server -y
+RUN apt-get update
 RUN apt-get install sudo -y
 
 USER root
 ENV  SSH_MASTER_USER master
 ENV  SSH_MASTER_PASS abc123
 
-COPY configssh/ssh_config /etc/ssh/ssh_config
-COPY configssh/sshd_config /etc/ssh/sshd_config
-COPY configssh/user.sh /usr/local/bin/user.sh
-RUN chmod +x /usr/local/bin/user.sh
-RUN /usr/local/bin/user.sh
- 
-COPY configssh/entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-CMD tail -f /dev/null
+RUN apt-get update && apt-get install -y openssh-server
+RUN mkdir /var/run/sshd
+RUN echo 'root:abc123' | chpasswd
+RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]

@@ -1,1 +1,1 @@
-docker build -t gocore:1.0 .
+docker build --tag tdagocore:1.1 .
