@@ -1,4 +1,4 @@
-PROJECT_NAME := "libcore"
+PROJECT_NAME := "tdacorego"
 PKG_LIST := $(shell go list ./... | grep -v /vendor/)
 GO_FILES := $(shell find . -name '*.go' | grep -v /vendor/ | grep -v _test.go)
 VERSION := $(shell cat version)

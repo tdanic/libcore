@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"time"
 
-	utl "github.com/tdanic/libcore/utility"
+	utl "tdacorego/utility"
 )
 
 /*BasicAuth : autentificacion basica de un client http */

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	utl "github.com/tdanic/libcore/utility"
+	utl "tdacorego/utility"
 )
 
 /*TestSendError : Envia un error con mensaje */

@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"strings"
 
+	utl "tdacorego/utility"
+
 	"github.com/jmoiron/sqlx"
-	utl "github.com/tdanic/libcore/utility"
 	"gopkg.in/ini.v1"
 )
 

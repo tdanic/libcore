@@ -1,50 +1,40 @@
 #Ambiente go oracle 
-FROM golang
+FROM golang:latest
 LABEL maintainer="developers@thedataage.com"
+
 #Utilidades
-RUN apt-get update 
+RUN apt-get update && apt-get upgrade -y
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends apt-utils
 
-#dependencia de la imagen
-RUN apt-get install vim -y && \
-    apt-get install curl -y && \
-    apt-get install wget -y && \
-    apt-get install gzip -y && \
-    apt-get install unzip -y && \
-    apt-get install zip -y && \
-    apt-get install p7zip-full -y && \
-    apt-get install inotify-tools -y && \
-    apt-get install software-properties-common -y && \
-    apt-get install libaio1 -y && \
-    apt-get install alien -y 
-#intalacion de rpm
+# Instala las dependencias necesarias
+RUN apt-get update && apt-get install -y libaio1
+RUN apt-get install build-essential -y
+RUN apt-get install alien -y
+RUN apt-get install pkg-config -y
 RUN apt-get install rpm -y
-#intalar git
 RUN apt-get install git -y
-#oracle cli 12.1
+RUN apt-get install openssh-server -y
+RUN apt-get install nano -y
+
+# Descarga la librerias de oracle cliente 12.1 y se instalan
 RUN mkdir /usr/auxprogram && \
     cd /usr/auxprogram && \
-    git clone https://github.com/tdanic/dockerglash.git
+    git clone https://github.com/tdanic/oracle_client12.git
 
-RUN cd  /usr/auxprogram/dockerglash && \
-    7z e jdkclient.7z.001 
-RUN cd  /usr/auxprogram/dockerglash && \
-    rm -R jdkclient.7z.0* 
-RUN cd  /usr/auxprogram/dockerglash && \
+RUN cd  /usr/auxprogram/oracle_client12 && \
     alien -i *.rpm
-
-RUN cd  /usr/auxprogram/dockerglash && \
+RUN cd  /usr/auxprogram/oracle_client12 && \
     rm *.rpm && \
-    rm -R Comprimer && \
-    rm README.md && \
     mkdir -p "/usr/lib/oracle/12.1/client64/network/admin"
 
-RUN rm -R  /usr/auxprogram
-# creacion de variable oci
-RUN mkdir -p "/usr/local/share/pkgconfig"
-COPY configssh/oci8.pc /usr/local/share/pkgconfig/oci8.pc 
-#variables de entorno
+# Desinstalacion de librerias no necesarias
+RUN apt-get autoremove -y
 
+# Definicion de variables de entorno pkg-config
+RUN mkdir -p "/usr/local/share/pkgconfig"
+COPY oci8.pc /usr/local/share/pkgconfig/oci8.pc 
+
+# Definicion de variables de entorno de sistema
 ENV PKG_CONFIG_PATH /usr/local/share/pkgconfig
 ENV ORACLE_HOME /usr/lib/oracle/12.1/client64
 ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:$ORACLE_HOME/lib:$ORACLE_HOME
@@ -57,41 +47,12 @@ ENV OCI_VERSION 12
 ENV C_INCLUDE_PATH /usr/include:/usr/include/oracle/12.1/client64:/usr/local/include
 ENV TNS_ADMIN $ORACLE_HOME/network/admin
 ENV TNSADMIN $ORACLE_HOME/network/admin
-ENV GOBIN $GOPATH/bin
-ENV GCCGO gccgo
-ENV CC gcc
-ENV CXX g++
-ENV CGO_ENABLED 1
+ENV PATH $PATH:$ORACLE_HOME/bin
 ENV PKG_CONFIG pkg-config
-ENV GO111MODULE on
-ENV GIT_TERMINAL_PROMPT 1
-ENV GOPROXY direct
-ENV GOSUMDB off
-ENV  PATH $PATH:$ORACLE_HOME/bin
-#depuracion de la imagen
-RUN  apt-get remove --purge unzip -y && \
-     apt-get remove --purge p7zip-full -y && \    
-     apt-get remove --purge alien -y && \
-     apt-get remove --purge rpm -y 
 
-RUN  apt-get autoremove -y
+# Eliminacion el directorio auxiliar
+RUN rm -R  /usr/auxprogram
 
-#configuracion ssh
-
-RUN apt-get install openssh-server -y
-RUN apt-get install sudo -y
-
-USER root
-ENV  SSH_MASTER_USER master
-ENV  SSH_MASTER_PASS abc123
-
-COPY configssh/ssh_config /etc/ssh/ssh_config
-COPY configssh/sshd_config /etc/ssh/sshd_config
-COPY configssh/user.sh /usr/local/bin/user.sh
-RUN chmod +x /usr/local/bin/user.sh
-RUN /usr/local/bin/user.sh
- 
-COPY configssh/entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-CMD tail -f /dev/null
+# Configuracion ssh
+RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+ENTRYPOINT service ssh start && bash

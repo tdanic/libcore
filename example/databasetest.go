@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/tdanic/libcore/database"
+	"tdacorego/database"
 )
 
 func main() {

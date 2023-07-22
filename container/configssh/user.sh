@@ -2,7 +2,8 @@
 set -e
  
 printf "\n\033[0;44m---> Creating SSH master user.\033[0m\n"
- 
+
+groupadd ssh 
 useradd -m -d /home/${SSH_MASTER_USER} -G ssh ${SSH_MASTER_USER} -s /bin/bash
 echo "${SSH_MASTER_USER}:${SSH_MASTER_PASS}" | chpasswd
 echo "root:${SSH_MASTER_PASS}" | chpasswd

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	utl "github.com/tdanic/libcore/utility"
+	utl "tdacorego/utility"
 )
 
 /*TestExistFile : Valida si un archivo existe*/

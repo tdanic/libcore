@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	db "github.com/tdanic/libcore/database"
+	db "tdacorego/database"
 )
 
 /*TestDataTable : Crea sql dinamicos*/

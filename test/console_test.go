@@ -3,7 +3,7 @@ package test
 import (
 	"testing"
 
-	utl "github.com/tdanic/libcore/utility"
+	utl "tdacorego/utility"
 )
 
 /*TestMsjBlue : Envie un string en color celeste*/

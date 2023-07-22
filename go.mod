@@ -1,27 +1,31 @@
-module github.com/tdanic/libcore
+module tdacorego
 
-go 1.13
+go 1.20
 
 require (
-	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/denisenkom/go-mssqldb v0.10.0
 	github.com/fatih/color v1.10.0
 	github.com/go-sql-driver/mysql v1.6.0
-	github.com/gopherjs/gopherjs v0.0.0-20210420193930-a4630ec28c79 // indirect
 	github.com/jmoiron/sqlx v1.3.3
-	github.com/kr/text v0.2.0 // indirect
 	github.com/labstack/echo/v4 v4.2.2
 	github.com/lib/pq v1.10.1
 	github.com/mattn/go-sqlite3 v1.14.7
-	github.com/pkg/errors v0.9.1 // indirect
-	github.com/smartystreets/assertions v1.2.0 // indirect
-	github.com/smartystreets/goconvey v1.6.4 // indirect
-	github.com/stretchr/testify v1.7.0 // indirect
-	golang.org/x/crypto v0.0.0-20210421170649-83a5a9bb288b // indirect
-	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
-	golang.org/x/text v0.3.6 // indirect
-	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/ini.v1 v1.62.0
 	gopkg.in/rana/ora.v4 v4.1.15
-	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
+)
+
+require (
+	github.com/golang-sql/civil v0.0.0-20190719163853-cb61b32ac6fe // indirect
+	github.com/labstack/gommon v0.3.0 // indirect
+	github.com/mattn/go-colorable v0.1.8 // indirect
+	github.com/mattn/go-isatty v0.0.12 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
+	github.com/smartystreets/goconvey v1.8.1 // indirect
+	github.com/valyala/bytebufferpool v1.0.0 // indirect
+	github.com/valyala/fasttemplate v1.2.1 // indirect
+	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a // indirect
+	golang.org/x/net v0.0.0-20200822124328-c89045814202 // indirect
+	golang.org/x/sync v0.3.0 // indirect
+	golang.org/x/sys v0.6.0 // indirect
+	golang.org/x/text v0.3.3 // indirect
 )

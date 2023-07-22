@@ -5,7 +5,8 @@ import (
 	"os"
 	"strings"
 
-	utl "github.com/tdanic/libcore/utility"
+	utl "tdacorego/utility"
+
 	"gopkg.in/ini.v1"
 
 	echo "github.com/labstack/echo/v4"

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	utl "github.com/tdanic/libcore/utility"
+	utl "tdacorego/utility"
 )
 
 type (

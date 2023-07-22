@@ -4,12 +4,15 @@ import (
 	"bytes"
 	"fmt"
 
-	utl "github.com/tdanic/libcore/utility"
+	utl "tdacorego/utility"
+
 	"gopkg.in/ini.v1"
 )
 
-/*DecripConect : desencripta una conexion de base de datos .ini con una encriptacion AES256 creada del mismo
-paquete utility*/
+/*
+DecripConect : desencripta una conexion de base de datos .ini con una encriptacion AES256 creada del mismo
+paquete utility
+*/
 func DecripConect(data []byte, pass string) (StCadConect, error) {
 	var cnx StCadConect
 	dataNew, err := utl.DesencripAES(pass, utl.BytetoStr(data))
