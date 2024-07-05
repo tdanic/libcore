@@ -1,5 +1,5 @@
 prefix=/usr
-version=12.1
+version=23
 build=client64
 
 libdir=${prefix}/lib/oracle/${version}/${build}/lib

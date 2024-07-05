@@ -16,16 +16,16 @@ RUN apt-get install git -y
 RUN apt-get install openssh-server -y
 RUN apt-get install nano -y
 
-# Descarga la librerias de oracle cliente 12.1 y se instalan
+# Descarga la librerias de oracle cliente 23 y se instalan
 RUN mkdir /usr/auxprogram && \
     cd /usr/auxprogram && \
-    git clone https://github.com/tdanic/oracle_client12.git
+    git clone https://github.com/tdanic/oracle_client23.git
 
-RUN cd  /usr/auxprogram/oracle_client12 && \
+RUN cd  /usr/auxprogram/oracle_client23 && \
     alien -i *.rpm
-RUN cd  /usr/auxprogram/oracle_client12 && \
+RUN cd  /usr/auxprogram/oracle_client23 && \
     rm *.rpm && \
-    mkdir -p "/usr/lib/oracle/12.1/client64/network/admin"
+    mkdir -p "/usr/lib/oracle/23/client64/network/admin"
 
 # Desinstalacion de librerias no necesarias
 RUN apt-get autoremove -y
@@ -36,15 +36,15 @@ COPY oci8.pc /usr/local/share/pkgconfig/oci8.pc
 
 # Definicion de variables de entorno de sistema
 ENV PKG_CONFIG_PATH /usr/local/share/pkgconfig
-ENV ORACLE_HOME /usr/lib/oracle/12.1/client64
+ENV ORACLE_HOME /usr/lib/oracle/23/client64
 ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:$ORACLE_HOME/lib:$ORACLE_HOME
-ENV OCI_HOME /usr/lib/oracle/12.1/client64/lib
+ENV OCI_HOME /usr/lib/oracle/23/client64/lib
 ENV OCI_LIB_DIR $ORACLE_HOME/lib
-ENV OCI_INC_DIR /usr/include/oracle/12.1/client64
-ENV OCI_INCLUDE_DIR /usr/include/oracle/12.1/client64
+ENV OCI_INC_DIR /usr/include/oracle/23/client64
+ENV OCI_INCLUDE_DIR /usr/include/oracle/23/client64
 ENV OCI_VERSION 12
 
-ENV C_INCLUDE_PATH /usr/include:/usr/include/oracle/12.1/client64:/usr/local/include
+ENV C_INCLUDE_PATH /usr/include:/usr/include/oracle/23/client64:/usr/local/include
 ENV TNS_ADMIN $ORACLE_HOME/network/admin
 ENV TNSADMIN $ORACLE_HOME/network/admin
 ENV PATH $PATH:$ORACLE_HOME/bin
